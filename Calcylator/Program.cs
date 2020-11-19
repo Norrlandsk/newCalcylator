@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 
 namespace Calcy
 {
@@ -11,13 +12,15 @@ namespace Calcy
 
             string operator1 = "";
             string operator2 = "";
+            string choice = "";
             string textToEnter = "Calcy";
-            float term1 = 0, term2 = 0, term3 = 0, sum = 0;
+            float term1 = 0, term2 = 0, term3 = 0, sum = 0, totSum=0;
             bool isRunning = true;
+            List<float> sumList = new List<float>();
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
 
 
-            Console.WriteLine(">\nWelcome to Calcy! \n Please enter operators...");
+            Console.WriteLine("\n>Welcome to Calcy! \n Please enter operators...");
             while (isRunning)
             {
                 Console.Write(">Operator 1:");
@@ -160,7 +163,42 @@ namespace Calcy
 
 
 
-                Console.WriteLine(term1 + operator1 + term2 + operator2 + term3 + "=" + sum);
+                Console.WriteLine(">"+term1 + operator1 + term2 + operator2 + term3 + "=" + sum);
+                sumList.Add(sum);
+                if (sum<100)
+                {
+                    Console.WriteLine(">The result is less than one hundred");
+                }
+                else if (sum>100)
+                {
+                    Console.WriteLine(">The result is more than one hundred");
+                }
+                else 
+                    Console.WriteLine(">Cool, the result is exactly one hundred");
+
+                Console.WriteLine(">Wanna go again? (y/n)");
+                choice=Console.ReadLine();
+
+                if (choice == "y")
+                { Console.Clear();
+                    Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (textToEnter.Length / 2)) + "}", textToEnter));
+
+
+                    Console.WriteLine("\n>Welcome to Calcy! \n Please enter operators...");
+                    continue; }
+                else if (choice == "n")
+                {
+                    Console.Clear();
+                    for (int i = 0; i <sumList.Count; i++)
+                    {
+                        totSum += sumList[i];
+                        
+                        
+                    }
+                    Console.WriteLine("The sum of all results is: " + totSum);
+                    isRunning = false;
+                }
+
             }
 
 
